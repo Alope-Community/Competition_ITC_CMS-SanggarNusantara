@@ -1,67 +1,158 @@
-import { IconKeyFill, IconMailFill } from "justd-icons";
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 
-export default function HelloWorld() {
+// api
+// import { getDashboard } from "@/api/Dashboard";
+
+// Icon
+import {
+  IconPeople,
+  IconInvoice,
+  IconCalendar,
+  IconArchive,
+} from "justd-icons";
+
+// Chart
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+import Navbar from "@/components/Navbar";
+
+// component
+// import Navbar from "./../../components/Navbar";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top" as const,
+    },
+    title: {
+      display: true,
+    },
+  },
+};
+
+const labels = ["January", "February", "March", "April", "May", "June"];
+
+export const data = {
+  labels,
+  datasets: [
+    {
+      label: "Event",
+      data: [65, 59, 80, 81, 56, 55],
+      backgroundColor: "rgb(239 68 68)",
+    },
+  ],
+};
+export const options2 = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top" as const,
+    },
+    title: {
+      display: true,
+    },
+  },
+};
+
+const labels2 = ["January", "February", "March", "April", "May", "June"];
+
+export const data2 = {
+  labels,
+  datasets: [
+    {
+      label: "News",
+      data: [65, 59, 80, 81, 56, 55],
+      backgroundColor: "rgb(239 68 68)",
+    },
+  ],
+};
+
+export default function Dashboard() {
+  const [total, setTotal] = useState({
+    totalEvent: 0,
+    totalNews: 0,
+    totalUser: 0,
+  });
+  const getDataDashboard = async () => {
+    // let result: any = await getDashboard();
+    // if (result) {
+    //   setTotal(result.data.data.total);
+    // }
+  };
+
+  useEffect(() => {
+    getDataDashboard();
+  }, []);
   return (
-    <div className="grid grid-cols-2">
-      <div className="flex items-center justify-center flex-col">
-        <div className="w-3/4">
-          <div className="mb-10">
-            <h1 className="text-5xl font-semibold uppercase">
-              Login <span className="text-8xl text-error -ml-3">.</span>
-            </h1>
-            <p className="mt-1 text-sm text-gray-800 w-3/4">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia
-              beatae, quam dolore nemo ex eaque perspiciatis mollitia libero
-            </p>
-          </div>
-
-          <div className="mb-5">
-            <div className="label">
-              <span className="label-text">Email</span>
+    <>
+      <Navbar active={1} />
+      <section className="grid grid-cols-4 gap-10 px-20 mt-10">
+        <div className="card bg-base-100 shadow rounded-lg p-4">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="card-title text-lg font-bold">User</h1>
+              <p className="font-semibold">{total.totalUser}</p>
             </div>
-            <label className="input input-bordered flex items-center gap-2">
-              <IconMailFill />
-              <input type="text" className="grow" placeholder="Email" />
-            </label>
-          </div>
-          <div className="mb-5">
-            <div className="label">
-              <span className="label-text">Password</span>
-            </div>
-            <label className="input input-bordered flex items-center gap-2">
-              <IconKeyFill />
-              <input type="text" className="grow" placeholder="Password" />
-            </label>
-          </div>
-          <div className="mt-10 text-center">
-            <button className="btn btn-error w-full">Login</button>
-            <p className="mt-4">
-              Belum punya akun?{" "}
-              <a href="" className="text-error font-medium">
-                Daftar
-              </a>
-            </p>
+            <IconPeople className="w-14 h-14" />
           </div>
         </div>
-
-        <p className="absolute bottom-10 text-gray-700 italic text-sm">
-          Copyright &copy; 2024 by ALOPE
-        </p>
-      </div>
-      <div className="bg-[url(https://images.unsplash.com/photo-1720518816836-e351848c5357?q=80&w=2085&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] w-full h-screen bg-cover bg-center relative z-10 after:content-[''] after:absolute after:inset-0 after:bg-gradient-to-t after:to-black/10 after:from-black/60 after:-z-10">
-        <div className="border-l-4 border-error py-5 pl-5 w-1/2 absolute bottom-20 left-0">
-          <h3 className="text-3xl font-semibold text-gray-50">
-            Sanggar Nusantara
-          </h3>
-          <p className="text-gray-200 text-sm mt-3">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur
-            harum, ab dolorum quod nemo, recusandae quia perferendis eligendi
-            unde maxime corporis odio, quam possimus tenetur velit illum
-            repellendus eveniet aut?
-          </p>
+        <div className="card bg-base-100 shadow rounded-lg p-4">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="card-title text-lg font-bold">Writer</h1>
+              <p className="font-semibold">10</p>
+            </div>
+            <IconInvoice className="w-14 h-14" />
+          </div>
         </div>
-      </div>
-    </div>
+        <div className="card bg-base-100 shadow rounded-lg p-4">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="card-title text-lg font-bold">Event</h1>
+              <p className="font-semibold">{total.totalEvent}</p>
+            </div>
+            <IconCalendar className="w-14 h-14" />
+          </div>
+        </div>
+        <div className="card bg-base-100 shadow rounded-lg p-4">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="card-title text-lg font-bold">News</h1>
+              <p className="font-semibold">{total.totalNews}</p>
+            </div>
+            <IconArchive className="w-14 h-14" />
+          </div>
+        </div>
+      </section>
+      <section className="grid grid-cols-2 gap-10 px-20 mt-10">
+        <div className="bg-white rounded-md p-5 shadow">
+          <h2 className="font-semibold text-lg">Event</h2>
+          <Bar options={options} data={data} />
+        </div>
+        <div className="bg-white rounded-md p-5 shadow">
+          <h2 className="font-semibold text-lg">News</h2>
+          <Bar options={options2} data={data2} />
+        </div>
+      </section>
+    </>
   );
 }
