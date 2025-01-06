@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
 // components
@@ -12,27 +12,75 @@ const TiptapEditor = dynamic(() => import("@/components/TipTap"), {
 
 // icons
 import { IconArrowLeft } from "justd-icons";
+import useUploadImage from "@/hooks/_uploadImage";
+import { useStoreNews } from "@/hooks/useNews";
+import { FormDataNews } from "@/models/News";
 
 export default function NewsAdd() {
   const editorRef = useRef<{ getContent: () => string } | null>(null);
   const [bannerPreview, setBannerPreview] = useState<string | null>(null);
 
-  const handleGetContent = () => {
-    if (editorRef.current) {
-      const content = editorRef.current.getContent();
-      console.log("Editor Content from Parent:", content);
-      alert("Editor Content: " + content);
+  const [formData, setFormData] = useState<FormDataNews>({
+    cover: null,
+    title: "",
+    description: "",
+    body: "",
+  });
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (true) {
+      handleCreateNews(formData);
     }
+  };
+
+  const mutationCreateNews = useStoreNews();
+  const mutationUploadImage = useUploadImage();
+
+  const handleCreateNews = (data: FormDataNews) => {
+    const formData = new FormData();
+
+    formData.append("cover", data.cover ? data.cover : "");
+
+    mutationUploadImage.mutate(formData, {
+      onSuccess: (response) => {
+        const resCover = response.data.cover.replace("news/", "");
+
+        // data.cover = resCover;
+
+        mutationCreateNews.mutate({
+          body: editorRef.current?.getContent() || "",
+          cover: resCover,
+          description: data.description,
+          title: data.title,
+        });
+
+        // setIsLoadingSubmit(false);
+      },
+      onError: (error) => {
+        console.error("Upload failed:", error);
+        // setIsLoadingSubmit(false);
+      },
+    });
   };
 
   const handleBannerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
+
+      // Set banner preview
       reader.onload = () => {
-        setBannerPreview(reader.result as string); // Set image preview
+        setBannerPreview(reader.result as string);
       };
       reader.readAsDataURL(file);
+
+      // Update formData with the selected file
+      setFormData((prevData) => ({
+        ...prevData,
+        cover: file, // Simpan file dalam formData
+      }));
     }
   };
 
@@ -48,7 +96,10 @@ export default function NewsAdd() {
               back
             </Link>
           </div>
-          <div className="grid grid-cols-3 gap-7">
+          <form
+            onSubmit={(e) => handleSubmit(e)}
+            className="grid grid-cols-3 gap-7"
+          >
             <div className="relative">
               <div className="sticky top-0">
                 <div className="mb-10">
@@ -78,8 +129,13 @@ export default function NewsAdd() {
                     </div>
                     <input
                       type="text"
-                      placeholder="Type here"
                       className="input input-bordered w-full"
+                      onChange={(e) => {
+                        setFormData({
+                          ...formData,
+                          title: e.target.value,
+                        });
+                      }}
                     />
                   </label>
                 </div>
@@ -90,14 +146,20 @@ export default function NewsAdd() {
                     </div>
                     <textarea
                       className="textarea textarea-bordered h-24"
-                      placeholder="Bio"
+                      onChange={(e) => {
+                        setFormData({
+                          ...formData,
+                          description: e.target.value,
+                        });
+                      }}
                     ></textarea>
                   </label>
                 </div>
                 <div>
                   <button
                     className="btn btn-neutral"
-                    onClick={() => handleGetContent()}
+                    type="submit"
+                    // onClick={() => handleGetContent()}
                   >
                     submit
                   </button>
@@ -112,7 +174,7 @@ export default function NewsAdd() {
                 <TiptapEditor ref={editorRef} />
               </div>
             </div>
-          </div>
+          </form>
         </section>
       </main>
     </>

@@ -49,7 +49,7 @@ export default function News() {
                 <tr>
                   <th>Image</th>
                   <th>Title</th>
-                  <th>Content</th>
+                  <th>Description</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -70,7 +70,7 @@ export default function News() {
                               src={row.cover}
                               width={60}
                               height={60}
-                              alt="Avatar"
+                              alt="News Cover"
                               className="object-cover rounded"
                             />
                           </div>

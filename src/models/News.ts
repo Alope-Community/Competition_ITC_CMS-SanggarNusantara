@@ -12,3 +12,11 @@ export type News = {
   created_at?: string;
   updated_at?: string;
 };
+
+export type FormDataNews = {
+  title: string;
+  description: string;
+  slug?: string;
+  cover: File | null;
+  body: string;
+};
