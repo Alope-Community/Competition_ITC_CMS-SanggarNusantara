@@ -2,6 +2,10 @@ export type ResultApiNews = {
   data: News[];
 };
 
+export type ResultApiNewsBySlug = {
+  data: News;
+};
+
 export type News = {
   id: number;
   title: string;
@@ -17,6 +21,6 @@ export type FormDataNews = {
   title: string;
   description: string;
   slug?: string;
-  cover: File | null;
+  cover: File | null | string;
   body: string;
 };

@@ -12,7 +12,9 @@ import {
   IconStrikeThroughFill,
 } from "justd-icons";
 
-const TiptapEditor = forwardRef((props, ref) => {
+const TiptapEditor = forwardRef((content, ref) => {
+  // const [content, setContent] = useState(props.initialContent || "");
+
   // Initialize Tiptap Editor
   const editor = useEditor({
     extensions: [StarterKit],

@@ -90,9 +90,12 @@ export default function News() {
                       <td>{row.description}</td>
                       <td>
                         <div className="flex items-center gap-1">
-                          <button className="btn btn-sm btn-primary text-white">
+                          <Link
+                            href={`/news/${row.slug}/edit`}
+                            className="btn btn-sm btn-primary text-white"
+                          >
                             <IconPencilBox className="w-4" />
-                          </button>
+                          </Link>
                           <button
                             onClick={() => {
                               setSelectedSlug(row.slug);

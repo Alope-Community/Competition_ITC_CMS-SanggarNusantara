@@ -3,7 +3,7 @@
 //   storeSellingAccounts,
 //   updateSellingAccounts,
 // } from "@/apis/SellingAccounts";
-import { deleteNews, storeNews } from "@/api/NewsAction";
+import { deleteNews, storeNews, updateNews } from "@/api/NewsAction";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
@@ -28,25 +28,25 @@ const useStoreNews = () => {
   });
 };
 
-// const useUpdateSellingAccount = () => {
-//   const queryClient = useQueryClient();
-//   const router = useRouter();
+const useUpdateNews = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
-//   return useMutation({
-//     mutationFn: updateSellingAccounts,
-//     onSuccess: () => {
-//       queryClient.invalidateQueries({ queryKey: ["selling-accounts"] });
+  return useMutation({
+    mutationFn: updateNews,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["news"] });
 
-//       alert("Update Success");
+      alert("Update Success");
 
-//       router.push("/account-store");
-//     },
-//     onError: (error) => {
-//       alert("Update Error");
-//       console.error("Error updating account:", error);
-//     },
-//   });
-// };
+      router.push("/news");
+    },
+    onError: (error) => {
+      alert("Update Error");
+      console.error("Error updating account:", error);
+    },
+  });
+};
 
 const useDeleteNews = () => {
   const queryClient = useQueryClient();
@@ -66,4 +66,4 @@ const useDeleteNews = () => {
   });
 };
 
-export { useStoreNews, useDeleteNews };
+export { useStoreNews, useUpdateNews, useDeleteNews };

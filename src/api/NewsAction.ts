@@ -14,12 +14,45 @@ const getNews = async () => {
   }
 };
 
+// GET
+const getNewsBySlug = async (slug: string) => {
+  try {
+    const response = await axios.get(
+      //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/sellingAccounts`
+      `http://127.0.0.1:8000/api/news/${slug}`
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(`Network response was not ok: ${(error as Error).message}`);
+  }
+};
+
 // POST
 const storeNews = async (data: FormDataNews) => {
   try {
     const response = await axios.post(
       //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/sellingAccounts`
       `http://127.0.0.1:8000/api/news`,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(`Network response was not ok: ${(error as Error).message}`);
+  }
+};
+
+// PUT
+const updateNews = async ({
+  slug,
+  data,
+}: {
+  slug: string;
+  data: FormDataNews;
+}) => {
+  try {
+    const response = await axios.put(
+      //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/sellingAccounts`
+      `http://127.0.0.1:8000/api/news/${slug}`,
       data
     );
     return response.data;
@@ -41,4 +74,4 @@ const deleteNews = async (slug: string) => {
   }
 };
 
-export { getNews, storeNews, deleteNews };
+export { getNews, getNewsBySlug, storeNews, updateNews, deleteNews };
