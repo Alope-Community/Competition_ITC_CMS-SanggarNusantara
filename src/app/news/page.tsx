@@ -1,6 +1,9 @@
-import Image from "next/image";
+"use client";
+
+// import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 // icons
 import { IconPencilBox, IconPlus, IconTrashEmpty } from "justd-icons";
@@ -8,7 +11,22 @@ import { IconPencilBox, IconPlus, IconTrashEmpty } from "justd-icons";
 // components
 import Navbar from "./../../components/Navbar";
 
+// API
+import { getNews } from "@/api/NewsAction";
+
+//Models
+import { ResultApiNews } from "@/models/News";
+
 export default function News() {
+  const {
+    data: news,
+    error,
+    isLoading: loadingGetNews,
+  } = useQuery<ResultApiNews>({
+    queryKey: ["news"],
+    queryFn: () => getNews(),
+  });
+
   return (
     <>
       <Navbar active={2} />
@@ -32,79 +50,47 @@ export default function News() {
                   <th>Image</th>
                   <th>Title</th>
                   <th>Content</th>
-                  <th>Writter</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {/* row 1 */}
-                <tr className="hover">
-                  <td>
-                    <div className="avatar">
-                      <div className="w-24 rounded">
-                        {" "}
-                        <Image
-                          src={"/img-placeholder.png"}
-                          width={60}
-                          height={60}
-                          alt="Avatar"
-                          className="object-cover rounded"
-                        />
-                      </div>
-                    </div>
-                  </td>
-                  <td>seren taun cigugur</td>
-                  <td>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Similique aut, praesentium voluptatum dignissimos temporibus
-                    error?
-                  </td>
-                  <td>Ilham Hafidz</td>
-                  <td>
-                    <div className="flex items-center gap-1">
-                      <button className="btn btn-sm btn-primary text-white">
-                        <IconPencilBox className="w-4" />
-                      </button>
-                      <button className="btn btn-sm btn-error text-white">
-                        <IconTrashEmpty className="w-4" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                {/* row 2 */}
-                <tr className="hover">
-                  <td>
-                    <div className="avatar">
-                      <div className="w-24 rounded">
-                        {" "}
-                        <Image
-                          src={"/img-placeholder.png"}
-                          width={60}
-                          height={60}
-                          alt="Avatar"
-                          className="object-cover rounded"
-                        />
-                      </div>
-                    </div>
-                  </td>
-                  <td>seren taun cigugur</td>
-                  <td>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Similique aut, praesentium voluptatum dignissimos temporibus
-                    error?
-                  </td>
-                  <td>Ilham Hafidz</td>
-                  <td>
-                    <div className="flex items-center gap-1">
-                      <button className="btn btn-sm btn-primary text-white">
-                        <IconPencilBox className="w-4" />
-                      </button>
-                      <button className="btn btn-sm btn-error text-white">
-                        <IconTrashEmpty className="w-4" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                {loadingGetNews ? (
+                  <tr>
+                    <td colSpan={4} className="text-center font-semibold">
+                      Loading
+                    </td>
+                  </tr>
+                ) : (
+                  news?.data?.map((row) => (
+                    <tr key={row.id} className="hover">
+                      <td>
+                        <div className="avatar">
+                          <div className="w-24 rounded">
+                            <img
+                              src={row.cover}
+                              width={60}
+                              height={60}
+                              alt="Avatar"
+                              className="object-cover rounded"
+                            />
+                          </div>
+                        </div>
+                      </td>
+                      <td>{row.title}</td>
+                      <td>{row.description}</td>
+                      <td>
+                        <div className="flex items-center gap-1">
+                          <button className="btn btn-sm btn-primary text-white">
+                            <IconPencilBox className="w-4" />
+                          </button>
+                          <button className="btn btn-sm btn-error text-white">
+                            <IconTrashEmpty className="w-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>

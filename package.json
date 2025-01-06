@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.62.15",
     "@tiptap/pm": "^2.11.0",
     "@tiptap/react": "^2.11.0",
     "@tiptap/starter-kit": "^2.11.0",
     "@windmill/react-ui": "^0.6.0",
+    "axios": "^1.7.9",
     "justd-icons": "^1.10.11",
     "next": "15.1.3",
     "react": "^19.0.0",
