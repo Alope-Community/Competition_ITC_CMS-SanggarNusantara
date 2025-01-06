@@ -16,8 +16,6 @@ const getNews = async () => {
 
 // POST
 const storeNews = async (data: FormDataNews) => {
-  console.log(data);
-
   try {
     const response = await axios.post(
       //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/sellingAccounts`
@@ -30,4 +28,17 @@ const storeNews = async (data: FormDataNews) => {
   }
 };
 
-export { getNews, storeNews };
+// DELETE
+const deleteNews = async (slug: string) => {
+  try {
+    const response = await axios.delete(
+      //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/sellingAccounts`
+      `http://127.0.0.1:8000/api/news/${slug}`
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(`Network response was not ok: ${(error as Error).message}`);
+  }
+};
+
+export { getNews, storeNews, deleteNews };

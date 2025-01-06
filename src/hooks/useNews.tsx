@@ -3,7 +3,7 @@
 //   storeSellingAccounts,
 //   updateSellingAccounts,
 // } from "@/apis/SellingAccounts";
-import { storeNews } from "@/api/NewsAction";
+import { deleteNews, storeNews } from "@/api/NewsAction";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
@@ -48,22 +48,22 @@ const useStoreNews = () => {
 //   });
 // };
 
-// const useDeleteSellingAccount = () => {
-//   const queryClient = useQueryClient();
+const useDeleteNews = () => {
+  const queryClient = useQueryClient();
 
-//   return useMutation({
-//     mutationFn: (id: number) => deleteSellingAccounts(id),
-//     onSuccess: () => {
-//       alert("Delete Success");
+  return useMutation({
+    mutationFn: (slug: string) => deleteNews(slug),
+    onSuccess: () => {
+      alert("Delete Success");
 
-//       queryClient.invalidateQueries({ queryKey: ["selling-accounts"] });
-//     },
-//     onError: (error) => {
-//       alert("Delete Failed");
+      queryClient.invalidateQueries({ queryKey: ["news"] });
+    },
+    onError: (error) => {
+      alert("Delete Failed");
 
-//       console.error("Error deleting item:", error);
-//     },
-//   });
-// };
+      console.error("Error deleting item:", error);
+    },
+  });
+};
 
-export { useStoreNews };
+export { useStoreNews, useDeleteNews };

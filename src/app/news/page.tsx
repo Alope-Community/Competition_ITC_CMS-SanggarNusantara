@@ -16,8 +16,11 @@ import { getNews } from "@/api/NewsAction";
 
 //Models
 import { ResultApiNews } from "@/models/News";
+import { useDeleteNews } from "@/hooks/useNews";
 
 export default function News() {
+  const [selectedSlug, setSelectedSlug] = useState("");
+
   const {
     data: news,
     error,
@@ -26,6 +29,13 @@ export default function News() {
     queryKey: ["news"],
     queryFn: () => getNews(),
   });
+
+  const mutationDeleteNews = useDeleteNews();
+
+  const handleDelete = () => {
+    // setShowDeleteConfirmation(false);
+    mutationDeleteNews.mutate(selectedSlug || "");
+  };
 
   return (
     <>
@@ -83,7 +93,21 @@ export default function News() {
                           <button className="btn btn-sm btn-primary text-white">
                             <IconPencilBox className="w-4" />
                           </button>
-                          <button className="btn btn-sm btn-error text-white">
+                          <button
+                            onClick={() => {
+                              setSelectedSlug(row.slug);
+                              const modal = document.getElementById(
+                                "modalConfirmationDelete"
+                              ) as HTMLDialogElement | null;
+
+                              if (modal) {
+                                modal.showModal();
+                              } else {
+                                console.error("Modal element not found");
+                              }
+                            }}
+                            className="btn btn-sm btn-error text-white"
+                          >
                             <IconTrashEmpty className="w-4" />
                           </button>
                         </div>
@@ -96,6 +120,24 @@ export default function News() {
           </div>
         </section>
       </main>
+
+      <dialog id="modalConfirmationDelete" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Yakin!</h3>
+          <p className="py-4">Apakah Yakin ingin hapus?</p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+              <button
+                className="btn btn-primary ml-3"
+                onClick={() => handleDelete()}
+              >
+                Yakin
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 }
