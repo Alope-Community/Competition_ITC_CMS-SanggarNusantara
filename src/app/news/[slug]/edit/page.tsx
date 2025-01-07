@@ -16,7 +16,14 @@ import { getNewsBySlug } from "@/api/NewsAction";
 import { FormDataNews, ResultApiNewsBySlug } from "@/models/News";
 
 // icons
-import { IconArrowLeft } from "justd-icons";
+import {
+  IconArrowLeft,
+  IconBoldFill,
+  IconBulletList,
+  IconItalicFill,
+  IconListBullets,
+  IconStrikeThroughFill,
+} from "justd-icons";
 
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -89,8 +96,6 @@ export default function NewsEdit() {
     }
 
     const editorContent = editor?.getHTML() || ""; // Ambil konten editor
-
-    console.log("Editor Content:", editorContent);
 
     if (formData.cover) {
       // Jika ada cover, jalankan upload image terlebih dahulu
@@ -209,12 +214,13 @@ export default function NewsEdit() {
                   {/* Menu Bar */}
                   <div className="control-group mt-4 flex gap-1">
                     <button
+                      type="button"
                       onClick={() =>
                         editor?.chain().focus().setParagraph().run()
                       }
-                      className={`btn btn-sm ${
+                      className={`btn btn-sm inline-flex items-center gap-1 ${
                         editor?.isActive("paragraph")
-                          ? "btn-primary"
+                          ? "btn-error"
                           : "btn-neutral"
                       }`}
                     >
@@ -222,6 +228,7 @@ export default function NewsEdit() {
                       Paragraph
                     </button>
                     <button
+                      type="button"
                       onClick={() =>
                         editor
                           ?.chain()
@@ -229,14 +236,86 @@ export default function NewsEdit() {
                           .toggleHeading({ level: 1 })
                           .run()
                       }
-                      className={`btn btn-sm ${
+                      className={`btn btn-sm inline-flex items-center gap-1 ${
                         editor?.isActive("heading", { level: 1 })
-                          ? "btn-primary"
+                          ? "btn-error"
                           : "btn-neutral"
                       }`}
                     >
                       <IconRecord />
                       H1
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => editor?.chain().focus().toggleBold().run()}
+                      disabled={
+                        !editor?.can().chain().focus().toggleBold().run()
+                      }
+                      className={`btn btn-sm inline-flex items-center gap-1 ${
+                        editor?.isActive("bold") ? "btn-error" : "btn-neutral"
+                      }`}
+                    >
+                      <IconBoldFill />
+                      Bold
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        editor?.chain().focus().toggleItalic().run()
+                      }
+                      disabled={
+                        !editor?.can().chain().focus().toggleItalic().run()
+                      }
+                      className={`btn btn-sm inline-flex items-center gap-1 ${
+                        editor?.isActive("italic") ? "btn-error" : "btn-neutral"
+                      }`}
+                    >
+                      <IconItalicFill />
+                      Italic
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        editor?.chain().focus().toggleStrike().run()
+                      }
+                      disabled={
+                        !editor?.can().chain().focus().toggleStrike().run()
+                      }
+                      className={`btn btn-sm inline-flex items-center gap-1 ${
+                        editor?.isActive("strike") ? "btn-error" : "btn-neutral"
+                      }`}
+                    >
+                      <IconStrikeThroughFill />
+                      Strike
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        editor?.chain().focus().toggleBulletList().run()
+                      }
+                      className={`btn btn-sm inline-flex items-center gap-1 ${
+                        editor?.isActive("bulletList")
+                          ? "btn-error"
+                          : "btn-neutral"
+                      }`}
+                    >
+                      <IconBulletList />
+                      Bullet List
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        editor?.chain().focus().toggleOrderedList().run()
+                      }
+                      className={`btn btn-sm inline-flex items-center gap-1 ${
+                        editor?.isActive("orderedList")
+                          ? "btn-error"
+                          : "btn-neutral"
+                      }`}
+                    >
+                      <IconListBullets />
+                      Ordered List
                     </button>
                   </div>
                   {/* Tiptap Editor */}

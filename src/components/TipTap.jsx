@@ -36,6 +36,7 @@ const TiptapEditor = forwardRef((content, ref) => {
       {/* Menu Bar */}
       <div className="control-group mt-4 flex gap-1">
         <button
+          type="button"
           onClick={() => editor?.chain().focus().setParagraph().run()}
           className={`btn btn-sm inline-flex items-center gap-1 ${
             editor?.isActive("paragraph") ? "btn-error" : "btn-neutral"
@@ -45,6 +46,7 @@ const TiptapEditor = forwardRef((content, ref) => {
           Paragraph
         </button>
         <button
+          type="button"
           onClick={() =>
             editor?.chain().focus().toggleHeading({ level: 1 }).run()
           }
@@ -58,6 +60,7 @@ const TiptapEditor = forwardRef((content, ref) => {
           H1
         </button>
         <button
+          type="button"
           onClick={() => editor?.chain().focus().toggleBold().run()}
           disabled={!editor?.can().chain().focus().toggleBold().run()}
           className={`btn btn-sm inline-flex items-center gap-1 ${
@@ -68,6 +71,7 @@ const TiptapEditor = forwardRef((content, ref) => {
           Bold
         </button>
         <button
+          type="button"
           onClick={() => editor?.chain().focus().toggleItalic().run()}
           disabled={!editor?.can().chain().focus().toggleItalic().run()}
           className={`btn btn-sm inline-flex items-center gap-1 ${
@@ -78,6 +82,7 @@ const TiptapEditor = forwardRef((content, ref) => {
           Italic
         </button>
         <button
+          type="button"
           onClick={() => editor?.chain().focus().toggleStrike().run()}
           disabled={!editor?.can().chain().focus().toggleStrike().run()}
           className={`btn btn-sm inline-flex items-center gap-1 ${
@@ -89,6 +94,7 @@ const TiptapEditor = forwardRef((content, ref) => {
         </button>
 
         <button
+          type="button"
           onClick={() => editor?.chain().focus().toggleBulletList().run()}
           className={`btn btn-sm inline-flex items-center gap-1 ${
             editor?.isActive("bulletList") ? "btn-error" : "btn-neutral"
@@ -98,6 +104,7 @@ const TiptapEditor = forwardRef((content, ref) => {
           Bullet List
         </button>
         <button
+          type="button"
           onClick={() => editor?.chain().focus().toggleOrderedList().run()}
           className={`btn btn-sm inline-flex items-center gap-1 ${
             editor?.isActive("orderedList") ? "btn-error" : "btn-neutral"
