@@ -24,6 +24,9 @@ import {
 // } from "chart.js";
 // import { Bar } from "react-chartjs-2";
 import Navbar from "@/components/Navbar";
+import getDashboard from "@/api/DashboardAction";
+import { useQuery } from "@tanstack/react-query";
+import { Dashboard } from "@/models/Dashboard";
 
 // component
 // import Navbar from "./../../components/Navbar";
@@ -86,7 +89,7 @@ import Navbar from "@/components/Navbar";
 //   ],
 // };
 
-export default function Dashboard() {
+export default function DashboardPage() {
   // const [total, setTotal] = useState({
   //   totalEvent: 0,
   //   totalNews: 0,
@@ -102,20 +105,25 @@ export default function Dashboard() {
   // useEffect(() => {
   //   getDataDashboard();
   // }, []);
+
+  const { data } = useQuery<Dashboard>({
+    queryKey: ["news"],
+    queryFn: () => getDashboard(),
+  });
   return (
     <>
       <Navbar active={1} />
       <section className="grid grid-cols-4 gap-10 px-20 mt-10">
-        <div className="card bg-base-100 shadow rounded-lg p-4">
+        <div className="card bg-base-200 shadow rounded-lg p-4">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="card-title text-lg font-bold">User</h1>
-              {/* <p className="font-semibold">{total.totalUser}</p> */}
+              <h1 className="card-title text-lg font-bold">Pengguna</h1>
+              <p className="font-semibold">{data?.userCount}</p>
             </div>
             <IconPeople className="w-14 h-14" />
           </div>
         </div>
-        <div className="card bg-base-100 shadow rounded-lg p-4">
+        <div className="card bg-base-200 shadow rounded-lg p-4">
           <div className="flex justify-between items-center">
             <div>
               <h1 className="card-title text-lg font-bold">Writer</h1>
@@ -124,7 +132,7 @@ export default function Dashboard() {
             <IconInvoice className="w-14 h-14" />
           </div>
         </div>
-        <div className="card bg-base-100 shadow rounded-lg p-4">
+        <div className="card bg-base-200 shadow rounded-lg p-4">
           <div className="flex justify-between items-center">
             <div>
               <h1 className="card-title text-lg font-bold">Event</h1>
@@ -133,11 +141,11 @@ export default function Dashboard() {
             <IconCalendar className="w-14 h-14" />
           </div>
         </div>
-        <div className="card bg-base-100 shadow rounded-lg p-4">
+        <div className="card bg-base-200 shadow rounded-lg p-4">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="card-title text-lg font-bold">News</h1>
-              {/* <p className="font-semibold">{total.totalNews}</p> */}
+              <h1 className="card-title text-lg font-bold">Berita</h1>
+              <p className="font-semibold">{data?.newsCount}</p>
             </div>
             <IconArchive className="w-14 h-14" />
           </div>

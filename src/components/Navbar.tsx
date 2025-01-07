@@ -23,7 +23,7 @@ export default function Navbar({ active }: { active: number }) {
           <div className="text-sm">
             <ul className="flex gap-8">
               <li className={active == 1 ? "font-bold text-error" : ""}>
-                <Link href={"/dashboard"} className="flex items-center gap-1">
+                <Link href={"/"} className="flex items-center gap-1">
                   <IconDashboard className="w-5" />
                   Dashboard
                 </Link>

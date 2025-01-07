@@ -29,7 +29,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { IconRecord } from "justd-icons";
 
-export default function NewsEdit() {
+export default function NewsEditPage() {
   const { slug } = useParams();
   const [bannerPreview, setBannerPreview] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormDataNews>({

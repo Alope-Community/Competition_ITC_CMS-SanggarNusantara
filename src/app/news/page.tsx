@@ -18,7 +18,7 @@ import { getNews } from "@/api/NewsAction";
 import { ResultApiNews } from "@/models/News";
 import { useDeleteNews } from "@/hooks/useNews";
 
-export default function News() {
+export default function NewsPage() {
   const [selectedSlug, setSelectedSlug] = useState("");
 
   const { data: news, isLoading: loadingGetNews } = useQuery<ResultApiNews>({

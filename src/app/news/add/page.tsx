@@ -16,7 +16,7 @@ import useUploadImage from "@/hooks/_uploadImage";
 import { useStoreNews } from "@/hooks/useNews";
 import { FormDataNews } from "@/models/News";
 
-export default function NewsAdd() {
+export default function NewsAddPage() {
   const editorRef = useRef<{ getContent: () => string } | null>(null);
   const [bannerPreview, setBannerPreview] = useState<string | null>(null);
 
