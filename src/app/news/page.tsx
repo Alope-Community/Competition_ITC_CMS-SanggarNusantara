@@ -66,7 +66,7 @@ export default function NewsPage() {
                       Loading
                     </td>
                   </tr>
-                ) : (
+                ) : news?.data?.length ? (
                   news?.data?.map((row) => (
                     <tr key={row.id} className="hover">
                       <td>
@@ -113,6 +113,12 @@ export default function NewsPage() {
                       </td>
                     </tr>
                   ))
+                ) : (
+                  <tr>
+                    <td colSpan={4} className="text-center font-semibold">
+                      No Data
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>
