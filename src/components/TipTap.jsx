@@ -38,7 +38,7 @@ const TiptapEditor = forwardRef((content, ref) => {
         <button
           onClick={() => editor?.chain().focus().setParagraph().run()}
           className={`btn btn-sm inline-flex items-center gap-1 ${
-            editor?.isActive("paragraph") ? "btn-primary" : "btn-neutral"
+            editor?.isActive("paragraph") ? "btn-error" : "btn-neutral"
           }`}
         >
           <IconRecord />
@@ -50,7 +50,7 @@ const TiptapEditor = forwardRef((content, ref) => {
           }
           className={`btn btn-sm inline-flex items-center gap-1 ${
             editor?.isActive("heading", { level: 1 })
-              ? "btn-primary"
+              ? "btn-error"
               : "btn-neutral"
           }`}
         >
@@ -61,7 +61,7 @@ const TiptapEditor = forwardRef((content, ref) => {
           onClick={() => editor?.chain().focus().toggleBold().run()}
           disabled={!editor?.can().chain().focus().toggleBold().run()}
           className={`btn btn-sm inline-flex items-center gap-1 ${
-            editor?.isActive("bold") ? "btn-primary" : "btn-neutral"
+            editor?.isActive("bold") ? "btn-error" : "btn-neutral"
           }`}
         >
           <IconBoldFill />
@@ -71,7 +71,7 @@ const TiptapEditor = forwardRef((content, ref) => {
           onClick={() => editor?.chain().focus().toggleItalic().run()}
           disabled={!editor?.can().chain().focus().toggleItalic().run()}
           className={`btn btn-sm inline-flex items-center gap-1 ${
-            editor?.isActive("italic") ? "btn-primary" : "btn-neutral"
+            editor?.isActive("italic") ? "btn-error" : "btn-neutral"
           }`}
         >
           <IconItalicFill />
@@ -81,7 +81,7 @@ const TiptapEditor = forwardRef((content, ref) => {
           onClick={() => editor?.chain().focus().toggleStrike().run()}
           disabled={!editor?.can().chain().focus().toggleStrike().run()}
           className={`btn btn-sm inline-flex items-center gap-1 ${
-            editor?.isActive("strike") ? "btn-primary" : "btn-neutral"
+            editor?.isActive("strike") ? "btn-error" : "btn-neutral"
           }`}
         >
           <IconStrikeThroughFill />
@@ -91,7 +91,7 @@ const TiptapEditor = forwardRef((content, ref) => {
         <button
           onClick={() => editor?.chain().focus().toggleBulletList().run()}
           className={`btn btn-sm inline-flex items-center gap-1 ${
-            editor?.isActive("bulletList") ? "btn-primary" : "btn-neutral"
+            editor?.isActive("bulletList") ? "btn-error" : "btn-neutral"
           }`}
         >
           <IconBulletList />
@@ -100,7 +100,7 @@ const TiptapEditor = forwardRef((content, ref) => {
         <button
           onClick={() => editor?.chain().focus().toggleOrderedList().run()}
           className={`btn btn-sm inline-flex items-center gap-1 ${
-            editor?.isActive("orderedList") ? "btn-primary" : "btn-neutral"
+            editor?.isActive("orderedList") ? "btn-error" : "btn-neutral"
           }`}
         >
           <IconListBullets />
@@ -108,7 +108,10 @@ const TiptapEditor = forwardRef((content, ref) => {
         </button>
       </div>
       {/* Tiptap Editor */}
-      <EditorContent editor={editor} className="border rounded mt-2" />
+      <EditorContent
+        editor={editor}
+        className="border border-neutral rounded mt-2"
+      />
     </div>
   );
 });

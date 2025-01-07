@@ -10,7 +10,7 @@ export default function Login() {
             <h1 className="text-5xl font-semibold uppercase">
               Login <span className="text-8xl text-error -ml-3">.</span>
             </h1>
-            <p className="mt-1 text-sm text-gray-800 w-3/4">
+            <p className="mt-1 text-sm w-3/4">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia
               beatae, quam dolore nemo ex eaque perspiciatis mollitia libero
             </p>
@@ -36,16 +36,16 @@ export default function Login() {
           </div>
           <div className="mt-10 text-center">
             <button className="btn btn-error w-full">Login</button>
-            <p className="mt-4">
+            {/* <p className="mt-4">
               Belum punya akun?{" "}
               <a href="" className="text-error font-medium">
                 Daftar
               </a>
-            </p>
+            </p> */}
           </div>
         </div>
 
-        <p className="absolute bottom-10 text-gray-700 italic text-sm">
+        <p className="absolute bottom-10 italic text-sm">
           Copyright &copy; 2024 by ALOPE
         </p>
       </div>

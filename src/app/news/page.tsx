@@ -42,7 +42,7 @@ export default function News() {
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold tracking-wider">NEWS</h2>
 
-            <Link href={"/news/add"} className="btn btn-neutral">
+            <Link href={"/news/add"} className="btn btn-error">
               <IconPlus className="w-3" />
               Add News
             </Link>
@@ -88,7 +88,7 @@ export default function News() {
                         <div className="flex items-center gap-1">
                           <Link
                             href={`/news/${row.slug}/edit`}
-                            className="btn btn-sm btn-primary text-white"
+                            className="btn btn-sm btn-neutral text-white"
                           >
                             <IconPencilBox className="w-4" />
                           </Link>
@@ -105,7 +105,7 @@ export default function News() {
                                 console.error("Modal element not found");
                               }
                             }}
-                            className="btn btn-sm btn-error text-white"
+                            className="btn btn-sm btn-error btn-outline"
                           >
                             <IconTrashEmpty className="w-4" />
                           </button>

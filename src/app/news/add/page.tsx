@@ -91,7 +91,7 @@ export default function NewsAdd() {
         <section className="card bg-base-100 shadow-md p-7 mb-10">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold tracking-wider">ADD NEWS</h2>
-            <Link href={"/news"} className="btn btn-neutral">
+            <Link href={"/news"} className="btn btn-error btn-outline">
               <IconArrowLeft className="w-5" />
               back
             </Link>
@@ -121,7 +121,7 @@ export default function NewsAdd() {
                     />
                   </label>
                 </div>
-                <hr className="my-5" />
+                <hr className="my-5 border-neutral" />
                 <div className="mb-5">
                   <label className="form-control w-full">
                     <div className="label">
@@ -157,7 +157,7 @@ export default function NewsAdd() {
                 </div>
                 <div>
                   <button
-                    className="btn btn-neutral"
+                    className="btn btn-error"
                     type="submit"
                     // onClick={() => handleGetContent()}
                   >
