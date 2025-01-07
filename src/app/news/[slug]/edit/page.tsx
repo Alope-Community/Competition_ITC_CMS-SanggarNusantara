@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import dynamic from "next/dynamic";
 import { useQuery } from "@tanstack/react-query";
 
 // components
@@ -10,29 +9,18 @@ import Navbar from "@/components/Navbar";
 
 // hooks
 import useUploadImage from "@/hooks/_uploadImage";
-import { useStoreNews, useUpdateNews } from "@/hooks/useNews";
+import { useUpdateNews } from "@/hooks/useNews";
 
 // API and models
 import { getNewsBySlug } from "@/api/NewsAction";
-import {
-  FormDataNews,
-  ResultApiNews,
-  ResultApiNewsBySlug,
-} from "@/models/News";
+import { FormDataNews, ResultApiNewsBySlug } from "@/models/News";
 
 // icons
 import { IconArrowLeft } from "justd-icons";
 
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import {
-  IconBoldFill,
-  IconBulletList,
-  IconItalicFill,
-  IconListBullets,
-  IconRecord,
-  IconStrikeThroughFill,
-} from "justd-icons";
+import { IconRecord } from "justd-icons";
 
 export default function NewsEdit() {
   const { slug } = useParams();
@@ -45,11 +33,7 @@ export default function NewsEdit() {
   });
 
   // Query untuk mendapatkan data berita
-  const {
-    data: news,
-    error,
-    isLoading: loadingGetNews,
-  } = useQuery<ResultApiNewsBySlug>({
+  const { data: news } = useQuery<ResultApiNewsBySlug>({
     queryKey: ["news", slug],
     queryFn: () => getNewsBySlug(typeof slug === "string" ? slug : ""),
     enabled: Boolean(slug),

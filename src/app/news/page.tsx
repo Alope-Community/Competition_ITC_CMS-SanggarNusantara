@@ -2,7 +2,7 @@
 
 // import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 // icons
@@ -21,11 +21,7 @@ import { useDeleteNews } from "@/hooks/useNews";
 export default function News() {
   const [selectedSlug, setSelectedSlug] = useState("");
 
-  const {
-    data: news,
-    error,
-    isLoading: loadingGetNews,
-  } = useQuery<ResultApiNews>({
+  const { data: news, isLoading: loadingGetNews } = useQuery<ResultApiNews>({
     queryKey: ["news"],
     queryFn: () => getNews(),
   });

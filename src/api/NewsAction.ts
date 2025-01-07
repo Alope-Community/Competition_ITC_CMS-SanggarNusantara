@@ -1,4 +1,4 @@
-import { FormDataNews, News } from "@/models/News";
+import { FormDataNews } from "@/models/News";
 import axios from "axios";
 
 // GET
