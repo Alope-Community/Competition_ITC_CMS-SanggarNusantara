@@ -4,14 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 // icons
-import {
-  IconChevronLeft,
-  IconDateTime,
-  IconLocation,
-  IconTicket,
-  IconUnlocked,
-  IconUnlockedFill,
-} from "@irsyadadl/paranoid";
+import { IconChevronLeft } from "justd-icons";
 
 // components
 import Navbar from "@/components/Navbar";
@@ -19,14 +12,15 @@ import Loading from "@/components/Loading";
 
 //api
 import { insertEvent } from "@/api/EventAction";
-import uploadFile from "@/api/_UploadFile";
+import uploadImage from "@/api/_UploadImage";
 
 interface apiResponse {
+  code: string;
   data: {
-    status_code: string;
-    fileName: string;
-    data: any;
+    banner: string;
   };
+  message: string;
+  success: boolean;
 }
 
 // GOOGLE MAPS
@@ -117,7 +111,7 @@ export default function AddEvent() {
     if (isAllEmpty) {
       const formData = new FormData();
 
-      formData.append("image", imageFile);
+      formData.append("banner", imageFile);
 
       uploadDataFile(formData);
     } else {
@@ -127,16 +121,15 @@ export default function AddEvent() {
 
   const uploadDataFile = async (formData: any) => {
     isLoading(true);
-    let result = (await uploadFile(formData)) as apiResponse;
+    let result = (await uploadImage(formData)) as apiResponse;
     if (result) {
-      if (result.data.status_code == "WN-01") {
-        setData({
-          ...data,
-          banner: result.data.fileName,
-        });
-
-        insertDataEvent(result.data.fileName);
+      if (result.code == "WN-01") {
       }
+      setData({
+        ...data,
+        banner: result.data.banner,
+      });
+      insertDataEvent(result.data.banner);
     }
   };
 
@@ -257,6 +250,7 @@ export default function AddEvent() {
 
     if (isAllEmpty) {
       setShowSubmitButton(true);
+      console.log(data);
     } else {
       setValidation(validator);
     }

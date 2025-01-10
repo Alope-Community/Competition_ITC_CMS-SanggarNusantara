@@ -15,8 +15,8 @@ import Navbar from "./../../components/Navbar";
 import { getEvent } from "@/api/EventAction";
 
 //Models
-import { useDeleteNews } from "@/hooks/useNews";
 import { ResultApiEvent } from "@/models/Event";
+import { useDeleteEvent } from "@/hooks/useEvent";
 
 export default function NewsPage() {
   const [selectedSlug, setSelectedSlug] = useState("");
@@ -26,11 +26,11 @@ export default function NewsPage() {
     queryFn: () => getEvent(),
   });
 
-  const mutationDeleteNews = useDeleteNews();
+  const mutationDeleteEvent = useDeleteEvent();
 
   const handleDelete = () => {
     // setShowDeleteConfirmation(false);
-    mutationDeleteNews.mutate(selectedSlug || "");
+    mutationDeleteEvent.mutate(selectedSlug || "");
   };
 
   return (
@@ -42,7 +42,7 @@ export default function NewsPage() {
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold tracking-wider">EVENT</h2>
 
-            <Link href={"/news/add"} className="btn btn-error">
+            <Link href={"/event/add"} className="btn btn-error">
               <IconPlus className="w-3" />
               Add Event
             </Link>
@@ -77,7 +77,7 @@ export default function NewsPage() {
                               src={row.banner}
                               width={60}
                               height={60}
-                              alt="News Cover"
+                              alt="Event Banner"
                               className="object-cover rounded"
                             />
                           </div>
@@ -89,7 +89,7 @@ export default function NewsPage() {
                       <td>
                         <div className="flex items-center gap-1">
                           <Link
-                            href={`/news/${row.slug}/edit`}
+                            href={`/event/${row.slug}/edit`}
                             className="btn btn-sm btn-neutral text-white"
                           >
                             <IconPencilBox className="w-4" />

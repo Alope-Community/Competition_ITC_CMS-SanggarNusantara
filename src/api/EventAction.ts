@@ -14,7 +14,7 @@ export const getEvent = async () => {
 
 export const getEventById = async (slug: string) => {
   try {
-    let result = await axios.get(`http://127.0.0.1:8000/api/event/${slug}`);
+    let result = await axios.get(`http://127.0.0.1:8000/api/events/${slug}`);
 
     if (result) {
       return result;
@@ -26,7 +26,7 @@ export const getEventById = async (slug: string) => {
 
 export const insertEvent = async (data: any, fileName: String) => {
   try {
-    let result = await axios.post(`http://127.0.0.1:8000/api/event`, {
+    let result = await axios.post(`http://127.0.0.1:8000/api/events`, {
       title: data.title,
       description: data.description,
       banner: fileName,
@@ -54,7 +54,7 @@ export const updateEvent = async (
   fileName: String
 ) => {
   try {
-    let result = await axios.patch(`http://127.0.0.1:8000/api/event/${slug}`, {
+    let result = await axios.patch(`http://127.0.0.1:8000/api/events/${slug}`, {
       title: data.title,
       description: data.description,
       banner: fileName,
@@ -75,9 +75,9 @@ export const updateEvent = async (
   }
 };
 
-export const deleteEvent = async (id: number) => {
+export const deleteEvent = async (slug: string) => {
   try {
-    let result = await axios.delete(`http://127.0.0.1:8000/api/event/${id}`);
+    let result = await axios.delete(`http://127.0.0.1:8000/api/events/${slug}`);
 
     if (result) {
       return result;
