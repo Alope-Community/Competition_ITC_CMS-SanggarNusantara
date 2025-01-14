@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { IconKeyFill, IconMailFill } from "justd-icons";
+import { IconEye, IconKeyFill, IconMailFill } from "justd-icons";
 import checkAuthToken from "@/lib/checkProtected";
 import { useRouter } from "next/navigation";
 
@@ -11,6 +11,7 @@ const SECRET_KEY =
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
     if (email == "admin@sanggar-nusantara.com" && password == "password") {
@@ -56,19 +57,26 @@ export default function Login() {
               />
             </label>
           </div>
-          <div className="mb-5">
+          <div className="mb-5 relative">
             <div className="label">
               <span className="label-text">Password</span>
             </div>
             <label className="input input-bordered flex items-center gap-2">
               <IconKeyFill />
               <input
-                type="text"
+                type={showPassword ? "text" : "password"}
                 className="grow"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </label>
+            <button
+              type="button"
+              className="absolute top-1/2 right-3 translate-y-1/2"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              <IconEye className="size-5" />
+            </button>
           </div>
           <div className="mt-10 text-center">
             <button onClick={handleLogin} className="btn btn-error w-full">
