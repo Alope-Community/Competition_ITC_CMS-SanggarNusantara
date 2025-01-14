@@ -19,7 +19,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (email == "admin@sanggar-nusantara.com" && password == "password") {
       localStorage.setItem("authToken", SECRET_KEY);
       toast.success("Login Berhasil!");
@@ -51,61 +52,57 @@ export default function Login() {
                 Login <span className="text-8xl text-error -ml-3">.</span>
               </h1>
               <p className="mt-1 text-sm w-3/4">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia
-                beatae, quam dolore nemo ex eaque perspiciatis mollitia libero
+                Bergabunglah bersama Mari lestarikan dan memajukan warisan kita
+                untuk generasi mendatang.
               </p>
             </div>
 
-            <div className="mb-5">
-              <div className="label">
-                <span className="label-text">Email</span>
+            <form action="" onSubmit={handleLogin}>
+              <div className="mb-5">
+                <div className="label">
+                  <span className="label-text">Email</span>
+                </div>
+                <label className="input input-bordered flex items-center gap-2">
+                  <IconMailFill />
+                  <input
+                    type="text"
+                    className="grow"
+                    placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </label>
               </div>
-              <label className="input input-bordered flex items-center gap-2">
-                <IconMailFill />
-                <input
-                  type="text"
-                  className="grow"
-                  placeholder="Email"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </label>
-            </div>
-            <div className="mb-5 relative">
-              <div className="label">
-                <span className="label-text">Password</span>
+              <div className="mb-5 relative">
+                <div className="label">
+                  <span className="label-text">Password</span>
+                </div>
+                <label className="input input-bordered flex items-center gap-2">
+                  <IconKeyFill />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="grow"
+                    placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </label>
+                <button
+                  type="button"
+                  className="absolute top-1/2 right-3 translate-y-1/2"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  <IconEye className="size-5" />
+                </button>
               </div>
-              <label className="input input-bordered flex items-center gap-2">
-                <IconKeyFill />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  className="grow"
-                  placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </label>
-              <button
-                type="button"
-                className="absolute top-1/2 right-3 translate-y-1/2"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                <IconEye className="size-5" />
-              </button>
-            </div>
-            <div className="mt-10 text-center">
-              <button onClick={handleLogin} className="btn btn-error w-full">
-                Login
-              </button>
-              {/* <p className="mt-4">
-              Belum punya akun?{" "}
-              <a href="" className="text-error font-medium">
-                Daftar
-              </a>
-            </p> */}
-            </div>
+              <div className="mt-10 text-center">
+                <button type="submit" className="btn btn-error w-full">
+                  Login
+                </button>
+              </div>
+            </form>
           </div>
 
           <p className="absolute bottom-10 italic text-sm">
-            Copyright &copy; 2024 by ALOPE
+            Copyright &copy; 2024
           </p>
         </div>
         <div className="bg-[url(https://images.unsplash.com/photo-1720518816836-e351848c5357?q=80&w=2085&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] w-full h-screen bg-cover bg-center relative z-10 after:content-[''] after:absolute after:inset-0 after:bg-gradient-to-t after:to-black/10 after:from-black/60 after:-z-10">
@@ -114,10 +111,9 @@ export default function Login() {
               Sanggar Nusantara
             </h3>
             <p className="text-gray-200 text-sm mt-3">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Aspernatur harum, ab dolorum quod nemo, recusandae quia
-              perferendis eligendi unde maxime corporis odio, quam possimus
-              tenetur velit illum repellendus eveniet aut?
+              Masuk untuk menjelajahi lebih dalam tentang kekayaan seni dan
+              budaya Nusantara. Bergabunglah bersama komunitas yang melestarikan
+              dan memajukan warisan kita untuk generasi mendatang.
             </p>
           </div>
         </div>
