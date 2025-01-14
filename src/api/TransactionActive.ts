@@ -2,9 +2,7 @@ import axios from "axios";
 
 export const getTransaction = async () => {
   try {
-    const result = await axios.get(
-      `http://127.0.0.1:8000/api/transaction-events`
-    );
+    const result = await axios.get(`https://alope.site/api/transaction-events`);
 
     if (result) {
       return result.data;
@@ -20,7 +18,7 @@ export const updateTransaction = async (formData: {
 }) => {
   try {
     const result = await axios.patch(
-      `http://127.0.0.1:8000/api/transaction-events/${formData.invoice}`,
+      `https://alope.site/api/transaction-events/${formData.invoice}`,
       {
         invoice: formData.invoice,
         status: formData.status,

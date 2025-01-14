@@ -2,8 +2,10 @@
 
 // import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 // icons
 import { IconPencilBox, IconPlus, IconTrashEmpty } from "justd-icons";
@@ -13,11 +15,12 @@ import Navbar from "./../../components/Navbar";
 
 // API
 import { getNews } from "@/api/NewsAction";
+import { useDeleteNews } from "@/hooks/useNews";
 
 //Models
 import { ResultApiNews } from "@/models/News";
-import { useDeleteNews } from "@/hooks/useNews";
-import { useRouter } from "next/navigation";
+
+// tools
 import checkAuthToken from "@/lib/checkProtected";
 
 export default function NewsPage() {
@@ -81,10 +84,10 @@ export default function NewsPage() {
                       <td>
                         <div className="avatar">
                           <div className="w-24 rounded">
-                            <img
-                              src={row.cover}
-                              width={60}
-                              height={60}
+                            <Image
+                              src={`https://alope.site/storage/news/${row.cover}`}
+                              width={200}
+                              height={200}
                               alt="News Cover"
                               className="object-cover rounded"
                             />

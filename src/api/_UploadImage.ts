@@ -5,7 +5,8 @@ const UploadImage = async (formData: FormData) => {
   try {
     const response = await axios.post(
       // `${process.env.NEXT_PUBLIC_API_BASE_URL}/uploadImage`,
-      `http://127.0.0.1:8000/api/upload-image`,
+      // `http://127.0.0.1:8000/api/upload-image`,
+      `https://alope.site/api/upload-image`,
       formData,
       {
         headers: {

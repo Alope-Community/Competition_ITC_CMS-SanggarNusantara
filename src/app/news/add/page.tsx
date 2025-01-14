@@ -12,9 +12,13 @@ const TiptapEditor = dynamic(() => import("@/components/TipTap"), {
 
 // icons
 import { IconArrowLeft } from "justd-icons";
+
+// Models
+import { FormDataNews } from "@/models/News";
+
+// API / HOOKS
 import useUploadImage from "@/hooks/_uploadImage";
 import { useStoreNews } from "@/hooks/useNews";
-import { FormDataNews } from "@/models/News";
 
 export default function NewsAddPage() {
   const editorRef = useRef<{ getContent: () => string } | null>(null);

@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ["alope.site"], // tambahkan domain Anda di sini
+  },
 };
 
 export default nextConfig;

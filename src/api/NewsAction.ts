@@ -6,7 +6,7 @@ const getNews = async () => {
   try {
     const response = await axios.get(
       //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/sellingAccounts`
-      `http://127.0.0.1:8000/api/news`
+      `https://alope.site/api/news`
     );
     return response.data;
   } catch (error) {
@@ -19,7 +19,7 @@ const getNewsBySlug = async (slug: string) => {
   try {
     const response = await axios.get(
       //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/sellingAccounts`
-      `http://127.0.0.1:8000/api/news/${slug}`
+      `https://alope.site/api/news/${slug}`
     );
     return response.data;
   } catch (error) {
@@ -32,7 +32,7 @@ const storeNews = async (data: FormDataNews) => {
   try {
     const response = await axios.post(
       //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/sellingAccounts`
-      `http://127.0.0.1:8000/api/news`,
+      `https://alope.site/api/news`,
       data
     );
     return response.data;
@@ -52,7 +52,7 @@ const updateNews = async ({
   try {
     const response = await axios.put(
       //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/sellingAccounts`
-      `http://127.0.0.1:8000/api/news/${slug}`,
+      `https://alope.site/api/news/${slug}`,
       data
     );
     return response.data;
@@ -66,7 +66,7 @@ const deleteNews = async (slug: string) => {
   try {
     const response = await axios.delete(
       //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/sellingAccounts`
-      `http://127.0.0.1:8000/api/news/${slug}`
+      `https://alope.site/api/news/${slug}`
     );
     return response.data;
   } catch (error) {

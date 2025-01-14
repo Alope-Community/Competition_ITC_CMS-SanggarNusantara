@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -14,15 +15,6 @@ import Loading from "@/components/Loading";
 import { insertEvent } from "@/api/EventAction";
 import uploadImage from "@/api/_UploadImage";
 
-interface apiResponse {
-  code: string;
-  data: {
-    banner: string;
-  };
-  message: string;
-  success: boolean;
-}
-
 // GOOGLE MAPS
 import {
   LoadScript,
@@ -31,10 +23,18 @@ import {
   Autocomplete,
 } from "@react-google-maps/api";
 
-import { useState } from "react";
+// tools
 import { formatDateD_FM_FY_mmss } from "@/tools/dateFormatter";
 import formatRupiah from "@/tools/formatToRupiah";
 
+interface apiResponse {
+  code: string;
+  data: {
+    banner: string;
+  };
+  message: string;
+  success: boolean;
+}
 export default function AddEvent() {
   const router = useRouter();
 

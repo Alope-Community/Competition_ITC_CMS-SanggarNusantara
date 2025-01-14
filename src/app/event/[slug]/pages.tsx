@@ -18,6 +18,8 @@ import { getEventById } from "@/api/EventAction";
 // tools
 import { formatDateD_FM_FY_mmss } from "./../../../tools/dateFormatter";
 import formatRupiah from "@/tools/formatToRupiah";
+
+// models
 import { Event } from "@/models/Event";
 
 interface apiResponse {

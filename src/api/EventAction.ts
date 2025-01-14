@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const getEvent = async () => {
   try {
-    const result = await axios.get(`http://127.0.0.1:8000/api/events`);
+    const result = await axios.get(`https://alope.site/api/events`);
 
     if (result) {
       return result.data;
@@ -15,7 +15,7 @@ export const getEvent = async () => {
 
 export const getEventById = async (slug: string) => {
   try {
-    const result = await axios.get(`http://127.0.0.1:8000/api/events/${slug}`);
+    const result = await axios.get(`https://alope.site/api/events/${slug}`);
 
     if (result) {
       return result;
@@ -27,7 +27,7 @@ export const getEventById = async (slug: string) => {
 
 export const insertEvent = async (data: FormDataEvent, fileName: string) => {
   try {
-    const result = await axios.post(`http://127.0.0.1:8000/api/events`, {
+    const result = await axios.post(`https://alope.site/api/events`, {
       title: data.title,
       description: data.description,
       banner: fileName,
@@ -56,21 +56,18 @@ export const updateEvent = async (
   fileName: string
 ) => {
   try {
-    const result = await axios.patch(
-      `http://127.0.0.1:8000/api/events/${slug}`,
-      {
-        title: data.title,
-        description: data.description,
-        banner: fileName,
-        startedDate: data.startedDate,
-        startedTime: data.startedTime,
-        endedDate: data.endedDate,
-        endedTime: data.endedTime,
-        fee: data.fee,
-        location: data.location,
-        for: data.for,
-      }
-    );
+    const result = await axios.patch(`https://alope.site/api/events/${slug}`, {
+      title: data.title,
+      description: data.description,
+      banner: fileName,
+      startedDate: data.startedDate,
+      startedTime: data.startedTime,
+      endedDate: data.endedDate,
+      endedTime: data.endedTime,
+      fee: data.fee,
+      location: data.location,
+      for: data.for,
+    });
 
     if (result) {
       return result;
@@ -82,9 +79,7 @@ export const updateEvent = async (
 
 export const deleteEvent = async (slug: string) => {
   try {
-    const result = await axios.delete(
-      `http://127.0.0.1:8000/api/events/${slug}`
-    );
+    const result = await axios.delete(`https://alope.site/api/events/${slug}`);
 
     if (result) {
       return result;

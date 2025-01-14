@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
+import StarterKit from "@tiptap/starter-kit";
+import { useEditor, EditorContent } from "@tiptap/react";
 
 // components
 import Navbar from "@/components/Navbar";
@@ -23,11 +25,8 @@ import {
   IconItalicFill,
   IconListBullets,
   IconStrikeThroughFill,
+  IconRecord,
 } from "justd-icons";
-
-import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import { IconRecord } from "justd-icons";
 
 export default function NewsEditPage() {
   const { slug } = useParams();
@@ -61,7 +60,7 @@ export default function NewsEditPage() {
         cover: null,
         body: news.data.body,
       });
-      setBannerPreview(news.data.cover);
+      setBannerPreview(`https://alope.site/storage/news/${news.data.cover}`);
 
       // Mengisi konten editor Tiptap dengan body dari data berita
       if (editor) {
@@ -201,7 +200,7 @@ export default function NewsEditPage() {
                   </label>
                 </div>
                 <div>
-                  <button className="btn btn-neutral" type="submit">
+                  <button className="btn btn-error" type="submit">
                     Submit
                   </button>
                 </div>

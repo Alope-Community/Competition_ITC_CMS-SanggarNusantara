@@ -5,7 +5,7 @@ const getDashboard = async () => {
   try {
     const response = await axios.get(
       //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/dashboard`
-      `http://127.0.0.1:8000/api/dashboard`
+      `https://alope.site/api/dashboard`
     );
     return response.data;
   } catch (error) {

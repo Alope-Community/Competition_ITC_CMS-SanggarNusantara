@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 // icons
 import { IconCheck, IconLoader, IconX } from "justd-icons";
@@ -19,7 +20,6 @@ import { ResultApiResource } from "@/models/Transaction";
 // tools
 import formatRupiah from "@/tools/formatToRupiah";
 import checkAuthToken from "@/lib/checkProtected";
-import { useRouter } from "next/navigation";
 
 export default function TransactionPage() {
   const router = useRouter();
@@ -161,7 +161,7 @@ export default function TransactionPage() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={4} className="text-center font-semibold">
+                    <td colSpan={6} className="text-center font-semibold">
                       No Data
                     </td>
                   </tr>

@@ -3,6 +3,7 @@
 import React, { FormEvent, use, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import moment from "moment";
 
 // icons
@@ -15,6 +16,8 @@ import Loading from "@/components/Loading";
 //api
 import { getEventById, updateEvent } from "@/api/EventAction";
 import uploadImage from "@/api/_UploadImage";
+
+// models
 import { Event } from "@/models/Event";
 
 interface apiResponse {
@@ -87,7 +90,7 @@ export default function EditEvent({
         for: res.for,
       });
 
-      setImagePlaceholder("http://127.0.0.1:8000/storage/images/" + res.banner);
+      setImagePlaceholder("https://alope.site/storage/" + res.banner);
     }
   };
 
@@ -259,7 +262,9 @@ export default function EditEvent({
                     Banner
                   </label>
                   <label className="label-text" htmlFor="banner">
-                    <img
+                    <Image
+                      width={700}
+                      height={300}
                       src={
                         imagePlaceholder
                           ? imagePlaceholder

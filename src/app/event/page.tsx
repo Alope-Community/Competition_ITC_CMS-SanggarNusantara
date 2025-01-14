@@ -19,6 +19,7 @@ import { ResultApiEvent } from "@/models/Event";
 import { useDeleteEvent } from "@/hooks/useEvent";
 import checkAuthToken from "@/lib/checkProtected";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function EventPage() {
   const router = useRouter();
@@ -82,13 +83,14 @@ export default function EventPage() {
                       <td>
                         <div className="avatar">
                           <div className="w-24 rounded">
-                            <img
-                              src={row.banner}
-                              width={60}
-                              height={60}
+                            <Image
+                              src={`https://alope.site/storage/${row.banner}`}
+                              width={200}
+                              height={200}
                               alt="Event Banner"
                               className="object-cover rounded"
                             />
+                            {row.banner}
                           </div>
                         </div>
                       </td>
