@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 // icons
@@ -18,8 +18,17 @@ import { ResultApiResource } from "@/models/Transaction";
 
 // tools
 import formatRupiah from "@/tools/formatToRupiah";
+import checkAuthToken from "@/lib/checkProtected";
+import { useRouter } from "next/navigation";
 
 export default function TransactionPage() {
+  const router = useRouter();
+  useEffect(() => {
+    if (!checkAuthToken()) {
+      router.push("/login");
+    }
+  }, [router]);
+
   const { data: event, isLoading: loadingGetEvent } =
     useQuery<ResultApiResource>({
       queryKey: ["transaction"],

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 // api
 // import { getDashboard } from "@/api/Dashboard";
@@ -27,6 +27,8 @@ import Navbar from "@/components/Navbar";
 import getDashboard from "@/api/DashboardAction";
 import { useQuery } from "@tanstack/react-query";
 import { Dashboard } from "@/models/Dashboard";
+import checkAuthToken from "@/lib/checkProtected";
+import { useRouter } from "next/navigation";
 
 // component
 // import Navbar from "./../../components/Navbar";
@@ -90,6 +92,12 @@ import { Dashboard } from "@/models/Dashboard";
 // };
 
 export default function DashboardPage() {
+  const router = useRouter();
+  useEffect(() => {
+    if (!checkAuthToken()) {
+      router.push("/login");
+    }
+  }, [router]);
   // const [total, setTotal] = useState({
   //   totalEvent: 0,
   //   totalNews: 0,

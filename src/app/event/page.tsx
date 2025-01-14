@@ -2,7 +2,7 @@
 
 // import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 // icons
@@ -17,8 +17,17 @@ import { getEvent } from "@/api/EventAction";
 //Models
 import { ResultApiEvent } from "@/models/Event";
 import { useDeleteEvent } from "@/hooks/useEvent";
+import checkAuthToken from "@/lib/checkProtected";
+import { useRouter } from "next/navigation";
 
 export default function EventPage() {
+  const router = useRouter();
+  useEffect(() => {
+    if (!checkAuthToken()) {
+      router.push("/login");
+    }
+  }, [router]);
+
   const [selectedSlug, setSelectedSlug] = useState("");
 
   const { data: event, isLoading: loadingGetEvent } = useQuery<ResultApiEvent>({

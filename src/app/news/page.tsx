@@ -2,7 +2,7 @@
 
 // import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 // icons
@@ -17,8 +17,17 @@ import { getNews } from "@/api/NewsAction";
 //Models
 import { ResultApiNews } from "@/models/News";
 import { useDeleteNews } from "@/hooks/useNews";
+import { useRouter } from "next/navigation";
+import checkAuthToken from "@/lib/checkProtected";
 
 export default function NewsPage() {
+  const router = useRouter();
+  useEffect(() => {
+    if (!checkAuthToken()) {
+      router.push("/login");
+    }
+  }, [router]);
+
   const [selectedSlug, setSelectedSlug] = useState("");
 
   const { data: news, isLoading: loadingGetNews } = useQuery<ResultApiNews>({

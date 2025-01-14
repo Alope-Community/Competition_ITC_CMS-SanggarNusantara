@@ -1,7 +1,33 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { IconKeyFill, IconMailFill } from "justd-icons";
-import React from "react";
+import checkAuthToken from "@/lib/checkProtected";
+import { useRouter } from "next/navigation";
+
+const SECRET_KEY =
+  "a3b5c6d7e8f9g0h1i2j3k4l5m6n7o8p9q0r1s2t3u4v5w6x7y8z9a0b1c2d3e4f5";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    if (email == "admin@sanggar-nusantara.com" && password == "password") {
+      localStorage.setItem("authToken", SECRET_KEY);
+      router.push("/");
+    } else {
+      localStorage.removeItem("authToken");
+    }
+  };
+
+  const router = useRouter();
+  useEffect(() => {
+    if (checkAuthToken()) {
+      router.push("/");
+    }
+  }, [router]);
+
   return (
     <div className="grid grid-cols-2">
       <div className="flex items-center justify-center flex-col">
@@ -22,7 +48,12 @@ export default function Login() {
             </div>
             <label className="input input-bordered flex items-center gap-2">
               <IconMailFill />
-              <input type="text" className="grow" placeholder="Email" />
+              <input
+                type="text"
+                className="grow"
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </label>
           </div>
           <div className="mb-5">
@@ -31,11 +62,18 @@ export default function Login() {
             </div>
             <label className="input input-bordered flex items-center gap-2">
               <IconKeyFill />
-              <input type="text" className="grow" placeholder="Password" />
+              <input
+                type="text"
+                className="grow"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </label>
           </div>
           <div className="mt-10 text-center">
-            <button className="btn btn-error w-full">Login</button>
+            <button onClick={handleLogin} className="btn btn-error w-full">
+              Login
+            </button>
             {/* <p className="mt-4">
               Belum punya akun?{" "}
               <a href="" className="text-error font-medium">
