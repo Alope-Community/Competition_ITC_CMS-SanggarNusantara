@@ -8,6 +8,7 @@ import {
   IconCalendar,
   IconDashboard,
   IconLogout,
+  IconTicketFill,
 } from "justd-icons";
 
 export default function Navbar({ active }: { active: number }) {
@@ -38,6 +39,12 @@ export default function Navbar({ active }: { active: number }) {
                 <Link href={"/event"} className="flex items-center gap-1">
                   <IconCalendar className="w-5" />
                   Event
+                </Link>
+              </li>
+              <li className={active == 4 ? "font-bold text-error" : ""}>
+                <Link href={"/transaction"} className="flex items-center gap-1">
+                  <IconTicketFill className="w-5" />
+                  Transaction
                 </Link>
               </li>
             </ul>

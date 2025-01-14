@@ -18,7 +18,7 @@ import { getEvent } from "@/api/EventAction";
 import { ResultApiEvent } from "@/models/Event";
 import { useDeleteEvent } from "@/hooks/useEvent";
 
-export default function NewsPage() {
+export default function EventPage() {
   const [selectedSlug, setSelectedSlug] = useState("");
 
   const { data: event, isLoading: loadingGetEvent } = useQuery<ResultApiEvent>({

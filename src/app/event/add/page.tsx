@@ -49,6 +49,7 @@ export default function AddEvent() {
     endedDate: "",
     endedTime: "",
     fee: "",
+    maximumVisitor: "",
     location: "",
     for: "all ages",
     marker: {
@@ -91,6 +92,7 @@ export default function AddEvent() {
       endedDate: "",
       endedTime: "",
       fee: "",
+      maximumVisitor: "",
       location: "",
     };
 
@@ -152,6 +154,7 @@ export default function AddEvent() {
       endedDate: "",
       endedTime: "",
       fee: "",
+      maximumVisitor: "",
       location: "",
       for: "all ages",
       marker: {
@@ -250,7 +253,6 @@ export default function AddEvent() {
 
     if (isAllEmpty) {
       setShowSubmitButton(true);
-      console.log(data);
     } else {
       setValidation(validator);
     }
@@ -360,10 +362,10 @@ export default function AddEvent() {
                   </small>
                 </div>
               </div>
-              <div className="grid gap-5 grid-cols-6 col-span-3">
+              <div className="grid gap-5 grid-cols-8 col-span-3">
                 {!showSubmitButton ? (
                   <>
-                    <div className="form-control col-span-6">
+                    <div className="form-control col-span-8">
                       <label htmlFor="title" className="label-text">
                         Title
                       </label>
@@ -387,7 +389,7 @@ export default function AddEvent() {
                         {validation.title}
                       </small>
                     </div>
-                    <div className="mb-5 col-span-6">
+                    <div className="mb-5 col-span-8">
                       <label htmlFor="description" className="label-text">
                         Description
                       </label>
@@ -458,7 +460,25 @@ export default function AddEvent() {
                         {validation.location}
                       </small>
                     </div>
-
+                    <div className="mb-5 col-span-2">
+                      <label className="label-text" htmlFor="location">
+                        Maksimal Pengunjung
+                      </label>
+                      <input
+                        type="text"
+                        className="input input-bordered w-full"
+                        id="maximumVisitor"
+                        onBlur={(e) => {
+                          setData({
+                            ...data,
+                            maximumVisitor: e.target.value,
+                          });
+                        }}
+                      />
+                      {/* <small className="text-red-500 italic">
+                        {validation.maximumVisitor}
+                      </small> */}
+                    </div>
                     <div className="mb-5 col-span-2">
                       <label className="label-text" htmlFor="for">
                         For
@@ -478,7 +498,7 @@ export default function AddEvent() {
                       </select>
                     </div>
 
-                    <div className="mb-5 col-span-2">
+                    <div className="mb-5 col-span-3">
                       <label className="label-text" htmlFor="for">
                         Started Date
                       </label>
@@ -525,7 +545,7 @@ export default function AddEvent() {
                       </small>
                     </div>
 
-                    <div className="mb-5 col-span-2">
+                    <div className="mb-5 col-span-3">
                       <label className="label-text" htmlFor="for">
                         Ended Date
                       </label>
@@ -573,7 +593,7 @@ export default function AddEvent() {
                     </div>
                   </>
                 ) : (
-                  <div className="rounded-md overflow-hidden w-full col-span-6">
+                  <div className="rounded-md overflow-hidden w-full col-span-8">
                     <LoadScript
                       googleMapsApiKey="AIzaSyBKDtW47ZKzT5JPduQvi3gUFNHNZmXk-FU"
                       libraries={["places"]}
@@ -620,7 +640,7 @@ export default function AddEvent() {
                   </div>
                 )}
 
-                <div className="flex gap-3 mt-10 justify-end col-span-6">
+                <div className="flex gap-3 mt-10 justify-end col-span-8">
                   <button
                     className="btn btn-ghost"
                     type="reset"

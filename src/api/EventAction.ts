@@ -35,6 +35,7 @@ export const insertEvent = async (data: any, fileName: String) => {
       endedDate: data.endedDate,
       endedTime: data.endedTime,
       fee: data.fee,
+      maximumVisitor: data.maximumVisitor,
       location: data.location,
       for: data.for,
       lat: data.marker.lat,
