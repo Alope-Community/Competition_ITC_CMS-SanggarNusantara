@@ -10,6 +10,7 @@ import {
   IconInvoice,
   IconCalendar,
   IconArchive,
+  IconTicketFill,
 } from "justd-icons";
 
 // Chart
@@ -117,7 +118,7 @@ export default function DashboardPage() {
         <div className="card bg-base-200 shadow rounded-lg p-4">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="card-title text-lg font-bold">Pengguna</h1>
+              <h1 className="card-title text-lg font-bold">Users</h1>
               <p className="font-semibold">{data?.userCount}</p>
             </div>
             <IconPeople className="w-14 h-14" />
@@ -126,17 +127,17 @@ export default function DashboardPage() {
         <div className="card bg-base-200 shadow rounded-lg p-4">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="card-title text-lg font-bold">Writer</h1>
-              <p className="font-semibold">10</p>
+              <h1 className="card-title text-lg font-bold">Transactiosn</h1>
+              <p className="font-semibold">{data?.transactionCount}</p>
             </div>
-            <IconInvoice className="w-14 h-14" />
+            <IconTicketFill className="w-14 h-14" />
           </div>
         </div>
         <div className="card bg-base-200 shadow rounded-lg p-4">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="card-title text-lg font-bold">Event</h1>
-              {/* <p className="font-semibold">{total.totalEvent}</p> */}
+              <h1 className="card-title text-lg font-bold">Events</h1>
+              <p className="font-semibold">{data?.eventCount}</p>
             </div>
             <IconCalendar className="w-14 h-14" />
           </div>
@@ -144,7 +145,7 @@ export default function DashboardPage() {
         <div className="card bg-base-200 shadow rounded-lg p-4">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="card-title text-lg font-bold">Berita</h1>
+              <h1 className="card-title text-lg font-bold">News</h1>
               <p className="font-semibold">{data?.newsCount}</p>
             </div>
             <IconArchive className="w-14 h-14" />
