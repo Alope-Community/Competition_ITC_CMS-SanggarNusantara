@@ -24,7 +24,7 @@ import { ResultApiNews } from "@/models/News";
 import checkAuthToken from "@/lib/checkProtected";
 
 // toast
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function NewsPage() {

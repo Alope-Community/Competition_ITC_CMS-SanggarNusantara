@@ -27,6 +27,7 @@ import {
 import { formatDateD_FM_FY_mmss } from "@/tools/dateFormatter";
 import formatRupiah from "@/tools/formatToRupiah";
 import { toast, ToastContainer } from "react-toastify";
+import Image from "next/image";
 
 interface apiResponse {
   code: string;
@@ -293,7 +294,9 @@ export default function AddEvent() {
                     Banner
                   </label>
                   <label htmlFor="banner">
-                    <img
+                    <Image
+                      width={700}
+                      height={300}
                       src={
                         imagePlaceholder
                           ? imagePlaceholder
