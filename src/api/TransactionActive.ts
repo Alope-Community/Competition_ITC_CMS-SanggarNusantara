@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getTransaction = async () => {
   try {
-    let result = await axios.get(
+    const result = await axios.get(
       `http://127.0.0.1:8000/api/transaction-events`
     );
 
@@ -19,7 +19,7 @@ export const updateTransaction = async (formData: {
   status: string;
 }) => {
   try {
-    let result = await axios.patch(
+    const result = await axios.patch(
       `http://127.0.0.1:8000/api/transaction-events/${formData.invoice}`,
       {
         invoice: formData.invoice,

@@ -1,16 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, use, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import moment from "moment";
 
-//
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-
 // icons
-import { IconChevronLeft } from "@irsyadadl/paranoid";
+import { IconChevronLeft } from "justd-icons";
 
 // components
 import Navbar from "@/components/Navbar";
@@ -18,23 +14,28 @@ import Loading from "@/components/Loading";
 
 //api
 import { getEventById, updateEvent } from "@/api/EventAction";
-import uploadFile from "@/api/_UploadFile";
+import uploadImage from "@/api/_UploadImage";
+import { Event } from "@/models/Event";
 
 interface apiResponse {
   data: {
     status_code: string;
-    fileName: string;
-    data: any;
+    banner: string;
+    data: Event;
   };
 }
 
-export default function EditEvent({ params }: { params: { slug: string } }) {
+export default function EditEvent({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const router = useRouter();
+
+  const resolvedParams = use<{ slug: string }>(params);
 
   const [loading, isLoading] = useState(false);
   const [loadingGetData, setLoadingGetData] = useState(false);
-
-  const dateFormat = moment();
 
   const [data, setData] = useState({
     title: "",
@@ -64,7 +65,7 @@ export default function EditEvent({ params }: { params: { slug: string } }) {
   const getDataEventById = async () => {
     setLoadingGetData(true);
 
-    let result = (await getEventById(params.slug)) as apiResponse;
+    const result = (await getEventById(resolvedParams.slug)) as apiResponse;
     if (result) {
       setLoadingGetData(false);
 
@@ -91,57 +92,58 @@ export default function EditEvent({ params }: { params: { slug: string } }) {
   };
 
   const [imagePlaceholder, setImagePlaceholder] = useState("");
-  const [imageFile, setImageFile] = useState("");
+  const [imageFile, setImageFile] = useState<File | Blob | string>();
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValidation({
       ...validation,
       banner: "",
     });
 
-    setImageFile(e.target.files[0]);
-
     if (e.target.files && e.target.files[0]) {
-      let reader = new FileReader();
+      setImageFile(e.target.files[0]);
 
-      reader.onload = (e: { target: any }) => {
-        setImagePlaceholder(e.target.result);
+      const reader = new FileReader();
+
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        const result = e?.target?.result;
+        if (typeof result === "string") {
+          setImagePlaceholder(result);
+        }
       };
 
       reader.readAsDataURL(e.target.files[0]);
     }
   };
 
-  const updateDataEvent = async (fileName: String) => {
+  const updateDataEvent = async (fileName: string) => {
     isLoading(true);
 
-    let result = await updateEvent(data, params.slug, fileName);
+    const result = await updateEvent(data, resolvedParams.slug, fileName);
     if (result) {
       isLoading(false);
       router.push("/event");
     }
   };
 
-  const uploadDataFile = async (formData: any) => {
+  const uploadDataFile = async (formData: FormData) => {
     isLoading(true);
 
-    let result = (await uploadFile(formData)) as apiResponse;
+    const result = (await uploadImage(formData)) as apiResponse;
     if (result) {
-      if (result.data.status_code == "WN-01") {
-        setData({
-          ...data,
-          banner: result.data.fileName,
-        });
+      setData({
+        ...data,
+        banner: result.data.banner,
+      });
 
-        updateDataEvent(result.data.fileName);
-      }
+      updateDataEvent(result.data.banner);
     }
   };
 
-  const checkSubmit = (e: any) => {
+  const checkSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    let validator = {
+    const validator = {
       title: "",
       description: "",
       banner: "",
@@ -171,8 +173,8 @@ export default function EditEvent({ params }: { params: { slug: string } }) {
       if (imagePlaceholder && imageFile) {
         const formData = new FormData();
 
-        formData.append("image", imageFile);
-        formData.append("id", params.slug);
+        formData.append("banner", imageFile);
+        formData.append("id", resolvedParams.slug);
 
         uploadDataFile(formData);
       } else {
@@ -188,46 +190,46 @@ export default function EditEvent({ params }: { params: { slug: string } }) {
   }, []);
 
   // loading get
-  const LoadingGetData = () => {
-    return (
-      <div className="grid grid-cols-4 gap-10 mt-10 ">
-        <div className="col-span-1">
-          <Skeleton height={300} />
-        </div>
-        <div className="grid grid-cols-6 col-span-3 gap-5">
-          <div className="mb-5 col-span-6">
-            <Skeleton height={40} />
-          </div>
-          <div className="mb-5 col-span-6">
-            <Skeleton height={40} />
-          </div>
-          <div className="mb-5  col-span-2">
-            <Skeleton height={40} />
-          </div>
-          <div className="mb-5 col-span-2">
-            <Skeleton height={40} />
-          </div>
-          <div className="mb-5 col-span-2">
-            <Skeleton height={40} />
-          </div>
+  // const LoadingGetData = () => {
+  //   return (
+  //     <div className="grid grid-cols-4 gap-10 mt-10 ">
+  //       <div className="col-span-1">
+  //         <Skeleton height={300} />
+  //       </div>
+  //       <div className="grid grid-cols-6 col-span-3 gap-5">
+  //         <div className="mb-5 col-span-6">
+  //           <Skeleton height={40} />
+  //         </div>
+  //         <div className="mb-5 col-span-6">
+  //           <Skeleton height={40} />
+  //         </div>
+  //         <div className="mb-5  col-span-2">
+  //           <Skeleton height={40} />
+  //         </div>
+  //         <div className="mb-5 col-span-2">
+  //           <Skeleton height={40} />
+  //         </div>
+  //         <div className="mb-5 col-span-2">
+  //           <Skeleton height={40} />
+  //         </div>
 
-          <div className="mb-5 col-span-2">
-            <Skeleton height={40} />
-          </div>
-          <div className="mb-5 col-span-1">
-            <Skeleton height={40} />
-          </div>
+  //         <div className="mb-5 col-span-2">
+  //           <Skeleton height={40} />
+  //         </div>
+  //         <div className="mb-5 col-span-1">
+  //           <Skeleton height={40} />
+  //         </div>
 
-          <div className="mb-5 col-span-2">
-            <Skeleton height={40} />
-          </div>
-          <div className="mb-5 col-span-1">
-            <Skeleton height={40} />
-          </div>
-        </div>
-      </div>
-    );
-  };
+  //         <div className="mb-5 col-span-2">
+  //           <Skeleton height={40} />
+  //         </div>
+  //         <div className="mb-5 col-span-1">
+  //           <Skeleton height={40} />
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // };
 
   return (
     <>
@@ -236,7 +238,7 @@ export default function EditEvent({ params }: { params: { slug: string } }) {
       <Loading show={loading} />
 
       <main className="px-20 mt-10">
-        <section className="shadow p-7 bg-white rounded mb-10">
+        <section className="shadow p-7 bg-base-100 rounded mb-10">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold tracking-wider">EDIT EVENT</h2>
 
@@ -247,7 +249,8 @@ export default function EditEvent({ params }: { params: { slug: string } }) {
           </div>
 
           {loadingGetData ? (
-            LoadingGetData()
+            // LoadingGetData()
+            "Loading...."
           ) : (
             <form action="" onSubmit={checkSubmit}>
               <div className="grid grid-cols-4 gap-10 mt-10 ">
@@ -517,11 +520,11 @@ export default function EditEvent({ params }: { params: { slug: string } }) {
 
                   <div className="flex justify-end col-span-6">
                     <button
-                      className="btn btn-neutral"
+                      className="btn btn-error"
                       type="submit"
-                      onClick={() => {
-                        checkSubmit;
-                      }}
+                      // onClick={() => {
+                      //   checkSubmit;
+                      // }}
                     >
                       Submit
                     </button>

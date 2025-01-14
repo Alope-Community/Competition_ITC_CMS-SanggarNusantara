@@ -7,7 +7,6 @@ import React from "react";
 // Icon
 import {
   IconPeople,
-  IconInvoice,
   IconCalendar,
   IconArchive,
   IconTicketFill,

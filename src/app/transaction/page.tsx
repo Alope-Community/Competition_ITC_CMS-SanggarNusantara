@@ -1,19 +1,10 @@
 "use client";
 
-// import Image from "next/image";
-import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
 // icons
-import {
-  IconCheck,
-  IconLoader,
-  IconPencilBox,
-  IconPlus,
-  IconTrashEmpty,
-  IconX,
-} from "justd-icons";
+import { IconCheck, IconLoader, IconX } from "justd-icons";
 
 // components
 import Navbar from "./../../components/Navbar";
@@ -29,8 +20,6 @@ import { ResultApiResource } from "@/models/Transaction";
 import formatRupiah from "@/tools/formatToRupiah";
 
 export default function TransactionPage() {
-  const [selectedSlug, setSelectedSlug] = useState("");
-
   const { data: event, isLoading: loadingGetEvent } =
     useQuery<ResultApiResource>({
       queryKey: ["transaction"],

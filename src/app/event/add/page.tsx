@@ -59,31 +59,33 @@ export default function AddEvent() {
   });
 
   const [imagePlaceholder, setImagePlaceholder] = useState("");
-  const [imageFile, setImageFile] = useState("");
+  const [imageFile, setImageFile] = useState<File | string | Blob>();
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValidation({
       ...validation,
       banner: "",
     });
 
-    setImageFile(e.target.files[0]);
+    const file = e.target.files?.[0]; // Ambil file pertama dari input
+    if (file) {
+      setImageFile(file);
 
-    if (e.target.files && e.target.files[0]) {
-      let reader = new FileReader();
-
-      reader.onload = (e: { target: any }) => {
-        setImagePlaceholder(e.target.result);
+      const reader = new FileReader();
+      reader.onload = (readerEvent) => {
+        if (readerEvent.target) {
+          setImagePlaceholder(readerEvent.target.result as string); // Pastikan ini adalah string
+        }
       };
 
-      reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(file);
     }
   };
 
-  const checkSubmit = (e: any) => {
+  const checkSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    let validator = {
+    const validator = {
       title: "",
       description: "",
       banner: "",
@@ -113,7 +115,9 @@ export default function AddEvent() {
     if (isAllEmpty) {
       const formData = new FormData();
 
-      formData.append("banner", imageFile);
+      if (imageFile instanceof Blob) {
+        formData.append("banner", imageFile);
+      }
 
       uploadDataFile(formData);
     } else {
@@ -121,12 +125,10 @@ export default function AddEvent() {
     }
   };
 
-  const uploadDataFile = async (formData: any) => {
+  const uploadDataFile = async (formData: FormData) => {
     isLoading(true);
-    let result = (await uploadImage(formData)) as apiResponse;
+    const result = (await uploadImage(formData)) as apiResponse;
     if (result) {
-      if (result.code == "WN-01") {
-      }
       setData({
         ...data,
         banner: result.data.banner,
@@ -135,9 +137,9 @@ export default function AddEvent() {
     }
   };
 
-  const insertDataEvent = async (fileName: String) => {
+  const insertDataEvent = async (fileName: string) => {
     isLoading(true);
-    let result = await insertEvent(data, fileName);
+    const result = await insertEvent(data, fileName);
     if (result) {
       isLoading(false);
       router.push("/event");
@@ -180,19 +182,19 @@ export default function AddEvent() {
   });
 
   //
-  const [map, setMap] = useState<google.maps.Map | null>(null);
+  // const [map, setMap] = useState<google.maps.Map | null>(null);
   const [autocomplete, setAutocomplete] =
     useState<google.maps.places.Autocomplete | null>(null);
-  const [center, setCenter] = useState<google.maps.LatLngLiteral>({
-    lat: -6.1754,
-    lng: 106.8272,
-  });
-  const [markerPosition, setMarkerPosition] =
-    useState<google.maps.LatLngLiteral | null>(null);
+  // const [center, setCenter] = useState<google.maps.LatLngLiteral>({
+  //   lat: -6.1754,
+  //   lng: 106.8272,
+  // });
+  // const [markerPosition, setMarkerPosition] =
+  //   useState<google.maps.LatLngLiteral | null>(null);
 
-  const handleLoadMap = (mapInstance: google.maps.Map) => {
-    setMap(mapInstance);
-  };
+  // const handleLoadMap = (mapInstance: google.maps.Map) => {
+  //   setMap(mapInstance);
+  // };
 
   const handleLoadAutocomplete = (
     autocompleteInstance: google.maps.places.Autocomplete
@@ -212,7 +214,7 @@ export default function AddEvent() {
             lng: location.lng(),
           },
         });
-        setMarkerPosition({ lat: location.lat(), lng: location.lng() });
+        // setMarkerPosition({ lat: location.lat(), lng: location.lng() });
       }
     }
   };
@@ -225,7 +227,7 @@ export default function AddEvent() {
   const [showSubmitButton, setShowSubmitButton] = useState(false);
 
   const checkNextForm = () => {
-    let validator = {
+    const validator = {
       title: "",
       description: "",
       banner: "",
@@ -663,9 +665,9 @@ export default function AddEvent() {
                     <button
                       className="btn btn-neutral"
                       type="submit"
-                      onClick={() => {
-                        checkSubmit;
-                      }}
+                      // onClick={(e) => {
+                      //   checkSubmit(e);
+                      // }}
                     >
                       Submit
                     </button>

@@ -6,7 +6,7 @@ import {
   IconLocation,
   IconTicket,
   IconUnlocked,
-} from "@irsyadadl/paranoid";
+} from "justd-icons";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,6 +18,15 @@ import { getEventById } from "@/api/EventAction";
 // tools
 import { formatDateD_FM_FY_mmss } from "./../../../tools/dateFormatter";
 import formatRupiah from "@/tools/formatToRupiah";
+import { Event } from "@/models/Event";
+
+interface apiResponse {
+  data: {
+    status_code: string;
+    banner: string;
+    data: Event;
+  };
+}
 
 export default function DetailEvent({ params }: { params: { slug: string } }) {
   const [data, setData] = useState({
@@ -34,7 +43,7 @@ export default function DetailEvent({ params }: { params: { slug: string } }) {
   });
 
   const getDataEventById = async () => {
-    let result: any = await getEventById(params.slug);
+    const result = (await getEventById(params.slug)) as apiResponse;
     if (result) {
       setData(result.data.data);
     }
