@@ -6,6 +6,7 @@
 import { deleteNews, storeNews, updateNews } from "@/api/NewsAction";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const useStoreNews = () => {
   const queryClient = useQueryClient();
@@ -16,12 +17,14 @@ const useStoreNews = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["news"] });
 
-      alert("Create Success");
+      toast.success("Berhasil Tambah Berita!");
 
-      router.push("/news");
+      setTimeout(() => {
+        router.push("/news");
+      }, 1000);
     },
     onError: (error) => {
-      alert("Create Error");
+      toast.error("Gagal Tambah Berita!");
 
       console.error("Error create item:", error);
     },
@@ -37,12 +40,15 @@ const useUpdateNews = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["news"] });
 
-      alert("Update Success");
+      toast.success("Berhasil Update Berita!");
 
-      router.push("/news");
+      setTimeout(() => {
+        router.push("/news");
+      }, 1000);
     },
     onError: (error) => {
-      alert("Update Error");
+      toast.error("Gagal Update Berita!");
+
       console.error("Error updating account:", error);
     },
   });
@@ -54,12 +60,12 @@ const useDeleteNews = () => {
   return useMutation({
     mutationFn: (slug: string) => deleteNews(slug),
     onSuccess: () => {
-      alert("Delete Success");
+      toast.success("Berhasil Hapus Berita!");
 
       queryClient.invalidateQueries({ queryKey: ["news"] });
     },
     onError: (error) => {
-      alert("Delete Failed");
+      toast.error("Gagal Hapus Berita!");
 
       console.error("Error deleting item:", error);
     },

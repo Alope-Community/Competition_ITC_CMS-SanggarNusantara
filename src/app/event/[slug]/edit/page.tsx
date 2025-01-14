@@ -19,6 +19,7 @@ import uploadImage from "@/api/_UploadImage";
 
 // models
 import { Event } from "@/models/Event";
+import { toast, ToastContainer } from "react-toastify";
 
 interface apiResponse {
   data: {
@@ -125,7 +126,12 @@ export default function EditEvent({
     const result = await updateEvent(data, resolvedParams.slug, fileName);
     if (result) {
       isLoading(false);
-      router.push("/event");
+
+      toast.success("Berhasil Update Event");
+
+      setTimeout(() => {
+        router.push("/event");
+      }, 1000);
     }
   };
 
@@ -237,6 +243,8 @@ export default function EditEvent({
   return (
     <>
       <Navbar active={3} />
+
+      <ToastContainer theme="dark" />
 
       <Loading show={loading} />
 

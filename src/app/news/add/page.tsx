@@ -19,6 +19,7 @@ import { FormDataNews } from "@/models/News";
 // API / HOOKS
 import useUploadImage from "@/hooks/_uploadImage";
 import { useStoreNews } from "@/hooks/useNews";
+import { ToastContainer } from "react-toastify";
 
 export default function NewsAddPage() {
   const editorRef = useRef<{ getContent: () => string } | null>(null);
@@ -91,6 +92,9 @@ export default function NewsAddPage() {
   return (
     <>
       <Navbar active={2} />
+
+      <ToastContainer theme="dark" />
+
       <main className="px-20 mt-10">
         <section className="card bg-base-100 shadow-md p-7 mb-10">
           <div className="flex justify-between items-center">

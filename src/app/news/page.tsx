@@ -23,6 +23,10 @@ import { ResultApiNews } from "@/models/News";
 // tools
 import checkAuthToken from "@/lib/checkProtected";
 
+// toast
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function NewsPage() {
   const router = useRouter();
   useEffect(() => {
@@ -48,6 +52,8 @@ export default function NewsPage() {
   return (
     <>
       <Navbar active={2} />
+
+      <ToastContainer theme="dark" />
 
       <main className="px-20 mt-10">
         <section className="card bg-base-100 shadow-md p-7 mb-10">
@@ -146,7 +152,7 @@ export default function NewsPage() {
             <form method="dialog">
               <button className="btn">Close</button>
               <button
-                className="btn btn-primary ml-3"
+                className="btn btn-error ml-3"
                 onClick={() => handleDelete()}
               >
                 Yakin

@@ -20,6 +20,7 @@ import { useDeleteEvent } from "@/hooks/useEvent";
 import checkAuthToken from "@/lib/checkProtected";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { ToastContainer } from "react-toastify";
 
 export default function EventPage() {
   const router = useRouter();
@@ -46,6 +47,8 @@ export default function EventPage() {
   return (
     <>
       <Navbar active={3} />
+
+      <ToastContainer theme="dark" />
 
       <main className="px-20 mt-10">
         <section className="card bg-base-100 shadow-md p-7 mb-10">
@@ -147,7 +150,7 @@ export default function EventPage() {
             <form method="dialog">
               <button className="btn">Close</button>
               <button
-                className="btn btn-primary ml-3"
+                className="btn btn-error ml-3"
                 onClick={() => handleDelete()}
               >
                 Yakin

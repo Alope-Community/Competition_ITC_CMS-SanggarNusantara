@@ -26,6 +26,7 @@ import {
 // tools
 import { formatDateD_FM_FY_mmss } from "@/tools/dateFormatter";
 import formatRupiah from "@/tools/formatToRupiah";
+import { toast, ToastContainer } from "react-toastify";
 
 interface apiResponse {
   code: string;
@@ -142,7 +143,12 @@ export default function AddEvent() {
     const result = await insertEvent(data, fileName);
     if (result) {
       isLoading(false);
-      router.push("/event");
+
+      toast.success("Berhasil Tambah Event!");
+
+      setTimeout(() => {
+        router.push("/event");
+      }, 1000);
     }
   };
 
@@ -263,6 +269,8 @@ export default function AddEvent() {
   return (
     <>
       <Navbar active={3} />
+
+      <ToastContainer theme="dark" />
 
       <Loading show={loading} />
 
@@ -654,16 +662,16 @@ export default function AddEvent() {
                   </button>
                   {!showSubmitButton ? (
                     <span
-                      className="btn btn-neutral"
+                      className="btn btn-error"
                       onClick={() => {
                         checkNextForm();
                       }}
                     >
-                      Berikutnya
+                      Next
                     </span>
                   ) : (
                     <button
-                      className="btn btn-neutral"
+                      className="btn btn-error"
                       type="submit"
                       // onClick={(e) => {
                       //   checkSubmit(e);
