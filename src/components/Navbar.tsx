@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 // icons
 import {
@@ -12,6 +13,13 @@ import {
 } from "justd-icons";
 
 export default function Navbar({ active }: { active: number }) {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    router.push("/login");
+  };
+
   return (
     <>
       <nav className="flex justify-between items-center px-20 py-3 shadow bg-base-200">
@@ -63,10 +71,13 @@ export default function Navbar({ active }: { active: number }) {
             </summary>
             <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
               <li className="text-error">
-                <Link href={"/"} className="flex items-center gap-1">
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-1"
+                >
                   <IconLogout className="w-5" />
                   Logout
-                </Link>
+                </button>
               </li>
             </ul>
           </details>
