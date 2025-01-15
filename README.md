@@ -35,6 +35,6 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Contact
-If you need help, please contact me :
+If you need help, please contact me :<br>
 Instagram : xxhamz_ <br>
 WA : 083871352030
