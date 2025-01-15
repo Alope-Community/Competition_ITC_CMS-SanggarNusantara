@@ -1,6 +1,6 @@
 # CMS Sanggar Nusantara
 
-It is a project for Content Management System for Sanggar Nusantara Website.
+It is a project for Content Management System for Sanggar Nusantara Website.<br>
 For login to the cms, you can use this credential :
 ```bash
 email : admin@sanggar-nusantara.com
@@ -8,8 +8,9 @@ password : password
 ```
 
 For the production CMS : [click here!](https://competition-itc-cms-sanggar-nusantara.vercel.app/)
+<br>
 For the production Website : [click here!](https://alope.site)
-
+<br><br>
 If you need the Website User Project, you can visit my github [in here!](https://github.com/Alope-Community/Competition_ITC_SanggarNusantara)
 
 
@@ -35,5 +36,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Contact
 If you need help, please contact me :
-Instagram : xxhamz_
+Instagram : xxhamz_ <br>
 WA : 083871352030
